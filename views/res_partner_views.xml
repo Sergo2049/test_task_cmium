@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_views_form_inherited_test_tasks" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherited.test_tasks</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='function']" position="after">
+                <field name="iam_delivery_partner"/>
+            </xpath>
+        </field>
+
+    </record>
+</odoo>
