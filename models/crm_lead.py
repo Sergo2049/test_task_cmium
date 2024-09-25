@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import api, models, fields
 
 
 class Lead(models.Model):
@@ -20,3 +20,18 @@ class Lead(models.Model):
                                               ('phone', 'Phone'),
                                               ('telegram', 'Telegram'), ],
                                              required=True)
+
+    paid_sum = fields.Monetary(currency_field='company_currency', compute='_compute_paid_sum')
+
+    orders_sum = fields.Monetary(currency_field='company_currency', compute='_compute_orders_sum')
+
+
+    @api.depends('order_ids', 'order_ids.amount_total')
+    def _compute_paid_sum(self):
+        for lead in self:
+            lead.paid_sum = sum(lead.order_ids.mapped('paid_invoices_amount'))
+
+    @api.depends('order_ids', 'order_ids.amount_total')
+    def _compute_orders_sum(self):
+        for lead in self:
+            lead.orders_sum = sum(lead.order_ids.mapped('amount_total'))
