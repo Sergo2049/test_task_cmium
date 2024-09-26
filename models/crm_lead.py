@@ -25,6 +25,7 @@ class Lead(models.Model):
 
     orders_sum = fields.Monetary(currency_field='company_currency', compute='_compute_orders_sum')
 
+    payment_progress = fields.Float(compute='_compute_payment_progress')
 
     @api.depends('order_ids', 'order_ids.amount_total')
     def _compute_paid_sum(self):
@@ -35,3 +36,21 @@ class Lead(models.Model):
     def _compute_orders_sum(self):
         for lead in self:
             lead.orders_sum = sum(lead.order_ids.mapped('amount_total'))
+
+    @api.depends('order_ids', 'order_ids.amount_total')
+    def _compute_payment_progress(self):
+        for rec in self:
+            if rec.orders_sum:
+                rec.payment_progress = 100 * rec.paid_sum / rec.orders_sum
+            else:
+                rec.payment_progress = 0
+
+    def action_show_relates_orders(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Sale order',
+            'res_model': 'sale.order',
+            'domain': [('opportunity_id', '=', self.id)],
+            'view_mode': 'tree',
+            'target': 'current'
+        }
