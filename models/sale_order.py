@@ -19,8 +19,18 @@ class Order(models.Model):
 
     paid_invoices_amount = fields.Monetary(compute='_compute_paid_invoices_amount', currency_field='currency_id', store=True)
 
+    payment_progress = fields.Float(compute='_compute_payment_progress')
+
     @api.depends('invoice_ids', 'invoice_ids.payment_state')
     def _compute_paid_invoices_amount(self):
         for order in self:
             paid_invoices = order.invoice_ids.filtered(lambda inv: inv.payment_state == 'paid')
             order.paid_invoices_amount = sum(paid_invoices.mapped('amount_total'))
+
+    @api.depends('invoice_ids', 'invoice_ids.payment_state')
+    def _compute_payment_progress(self):
+        for order in self:
+            if order.amount_total:
+                order.payment_progress = 100 * order.paid_invoices_amount / order.amount_total
+            else:
+                order.payment_progress = 0

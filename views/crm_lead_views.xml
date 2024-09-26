@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_create_sale_order" model="ir.actions.act_window">
+        <field name="name">Create Sale Order</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_opportunity_id': active_id}</field>
+    </record>
+
     <record id="crm_lead_views_form_inherited_test_tasks" model="ir.ui.view">
         <field name="name">crm.lead.view.form.inherited.test_tasks</field>
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
+            <header position="inside">
+                <button name="%(action_create_sale_order)d" type="action"
+                        string="Create Sale Order" class="btn-primary"/>
+            </header>
             <div class="oe_button_box" name="button_box" position="inside">
                 <button name="action_show_relates_orders" type="object"
                         class="oe_stat_button" icon="fa-usd" title="sale orders">
@@ -67,7 +79,8 @@
                         <span>Paid</span>
                     </div>
                     <div class="oe_kanban_bottom_right">
-                        <field name="payment_progress" widget="percentpie"/>
+                        <field name="payment_progress" widget="percentpie"
+                               attrs="{'invisible': [('orders_sum', '=', 0)]}"/>
                     </div>
                 </div>
             </xpath>
@@ -101,4 +114,5 @@
 
         </field>
     </record>
+
 </odoo>
