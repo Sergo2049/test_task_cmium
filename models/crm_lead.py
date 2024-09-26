@@ -54,3 +54,6 @@ class Lead(models.Model):
             'view_mode': 'tree',
             'target': 'current'
         }
+
+    def action_assign_lead_current_user(self):
+        self.user_id = self.env.user

@@ -84,34 +84,17 @@
                     </div>
                 </div>
             </xpath>
-            <!--            <xpath expr="//div[@class='o_kanban_record_bottom']" position="inside">-->
-            <!--                <button name="action_grab_lead" type="object" class="oe_stat_button" title="Grab"/>-->
-            <!--            </xpath>-->
-            <!--            <xpath expr="//div[@class='o_kanban_record_bottom']" position="inside">-->
-            <!--                <a type="button" class="btn btn-primary btn-sm"-->
-            <!--                   t-att-href="'/web#id=%d&view_type=form&model=crm.lead&action=%d' % (record.id.raw_value, env.ref('crm.crm_case_action_leads').id)">-->
-            <!--                    Мое, звоню-->
-            <!--                </a>-->
-            <!--            </xpath>-->
-            <!--            <xpath expr="//div[@class='o_kanban_record_bottom']" position="before">-->
-            <!--                <div>-->
-            <!--                    <span>Orders sum:</span>-->
-            <!--                    <field name="orders_sum"/>-->
-            <!--                     <button name="action_grab_lead" type="object" class="oe_stat_button" title="Grab"/>-->
-            <!--                </div>-->
-            <!--            </xpath>-->
-            <!--            <xpath expr="//div[@class='o_kanban_record_bottom']">-->
-            <!--                &lt;!&ndash;                <button name="action_grab_lead" type="object" class="oe_stat_button" title="Grab"/>&ndash;&gt;-->
-            <!--                <div class="oe_kanban_content">-->
-            <!--                    <strong>Orders Sum:</strong>-->
-            <!--                    <span t-esc="record.orders_sum.raw_value"/>-->
-            <!--                    <span t-esc="record.currency_id[1]"/>-->
-            <!--                </div>-->
-            <!--            </xpath>-->
-            <!--                <div class="o_kanban_record_bottom" position="inside">-->
-            <!--                    <button name="action_grab_lead" type="object" class="oe_stat_button" title="Grab"/>-->
-            <!--                </div>-->
 
+            <xpath expr="//div[@class='o_kanban_record_bottom']" position="before">
+                <div>
+                    <span>Orders sum:</span>
+                    <field name="orders_sum"/>
+                </div>
+                <div>
+                    <button name="action_assign_lead_current_user" type="object"
+                            class="btn btn-dark" string="Grab"/>
+                </div>
+            </xpath>
         </field>
     </record>
 
