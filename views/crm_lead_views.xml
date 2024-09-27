@@ -47,7 +47,7 @@
                 <field name="orders_sum"/>
             </xpath>
             <xpath expr="//group[@name='opportunity_partner']" position="inside">
-                <field name="paid_sum" string="Payment progress" widget="gauge"
+                <field name="paid_sum" nolabel="1" string="Payment progress" widget="gauge"
                        options="{'max_field': 'orders_sum', 'style': 'width:160px, height:160px'}"
                        attrs="{'invisible': [('orders_sum', '=', 0)]}"/>
             </xpath>
