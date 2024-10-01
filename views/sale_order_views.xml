@@ -21,6 +21,9 @@
                 <field name="paid_invoices_amount"/>
             </xpath>
             <xpath expr="//group[@name='partner_details']" position="inside">
+                <field name="commitment_date"/>
+            </xpath>
+            <xpath expr="//group[@name='partner_details']" position="inside">
                 <field name="paid_invoices_amount" widget="gauge"
                        options="{'max_field': 'amount_total', 'style': 'width:160px, height:160px'}"/>
             </xpath>
@@ -35,6 +38,17 @@
             <xpath expr="//field[@name='amount_total']" position="after">
                 <field name="payment_progress" widget="progressbar"/>
             </xpath>
+        </field>
+    </record>
+
+    <record id="delivery_statistic_views_calendar_test_tasks" model="ir.ui.view">
+        <field name="name">sale.order.view.calendar.test_tasks</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <calendar string="Delivery Calendar" date_start="commitment_date" color="delivery_partner_id">
+                <field name="name"/>
+                <field name="delivery_partner_id"/>
+            </calendar>
         </field>
     </record>
 </odoo>
