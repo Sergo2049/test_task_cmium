@@ -10,7 +10,7 @@ class Order(models.Model):
 
     delivery_partner_id = fields.Many2one(
         'res.partner',
-        related='opportunity_id.delivery_partner_id')
+        related='opportunity_id.delivery_partner_id', store=True)
 
     lead_source = fields.Selection(related='opportunity_id.lead_source')
 
@@ -19,7 +19,9 @@ class Order(models.Model):
 
     paid_invoices_amount = fields.Monetary(compute='_compute_paid_invoices_amount', currency_field='currency_id', store=True)
 
-    payment_progress = fields.Float(compute='_compute_payment_progress')
+    payment_progress = fields.Float(compute='_compute_payment_progress', store=True)
+
+    courier_company_id = fields.Many2one(related='delivery_partner_id.company_id', store=True)
 
     @api.depends('invoice_ids', 'invoice_ids.payment_state')
     def _compute_paid_invoices_amount(self):

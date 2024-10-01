@@ -47,8 +47,42 @@
         <field name="arch" type="xml">
             <calendar string="Delivery Calendar" date_start="commitment_date" color="delivery_partner_id">
                 <field name="name"/>
-                <field name="delivery_partner_id"/>
+                <field name="delivery_partner_id" filters="1"/>
             </calendar>
+        </field>
+    </record>
+
+    <record id="delivery_statistic_views_pivot_test_tasks" model="ir.ui.view">
+        <field name="name">sale.order.view.pivot.test_tasks</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <pivot string="Delivery Pivot">
+<!--                measures-->
+                <field name="id" string="Order count"/>
+                <field name="paid_invoices_amount" type="measure"/>
+                <field name="payment_progress" type="measure"/>
+                <field name="amount_total" string="Orders amount" type="measure"/>
+<!--                rows-->
+                <field name="delivery_partner_id" type="row"/>
+<!--                col-->
+<!--                <field name="delivery_partner_id.company_id"  type="col"/>-->
+                <field name="courier_company_id" type="col"/>
+                <field name="commitment_date" string="Delivery date" interval="month" type="col"/>
+                <field name="commitment_date" string="Delivery date" interval="week" type="col"/>
+                <field name="commitment_date" string="Delivery date" interval="day" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="delivery_statistic_views_graph_test_tasks" model="ir.ui.view">
+        <field name="name">sale.order.view.graph.test_tasks</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <graph string="Delivery Graph">
+<!--                <field name="id"/>-->
+                <field name="delivery_partner_id"/>
+                <field name="id" type="measure"/>
+            </graph>
         </field>
     </record>
 </odoo>
