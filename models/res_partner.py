@@ -19,4 +19,5 @@ class Partner(models.Model):
         deliveries = self.env['sale.order'].sudo().search(domain)
 
         total_sum = sum(order.amount_total for order in deliveries)
+        # deliveries_data =
         return deliveries
