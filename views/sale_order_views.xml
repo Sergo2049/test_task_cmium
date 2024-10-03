@@ -66,7 +66,7 @@
                 <field name="delivery_partner_id" type="row"/>
 <!--                col-->
 <!--                <field name="delivery_partner_id.company_id"  type="col"/>-->
-                <field name="courier_company_id" type="col"/>
+                <field name="company_id" type="col"/>
                 <field name="commitment_date" string="Delivery date" interval="month" type="col"/>
                 <field name="commitment_date" string="Delivery date" interval="week" type="col"/>
                 <field name="commitment_date" string="Delivery date" interval="day" type="col"/>

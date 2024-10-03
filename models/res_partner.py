@@ -19,5 +19,11 @@ class Partner(models.Model):
         deliveries = self.env['sale.order'].sudo().search(domain)
 
         total_sum = sum(order.amount_total for order in deliveries)
-        # deliveries_data =
-        return deliveries
+
+        deliveries_data = {
+            'start_date': start_date,
+            'end_date': end_date,
+            'deliveries': deliveries,
+            'total_sum': total_sum
+        }
+        return deliveries_data
