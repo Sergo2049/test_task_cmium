@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="courier_delivery_report" name="Courier delivery">
+        <t t-call="web.html_container">
+            <div class="page">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="container">
+                        <t t-set="delivery_data" t-value="doc._get_monthly_deliveries()"/>
+
+                        <h3>Courier Monthly Delivery -
+                            <t t-out="delivery_data['start_date']"/> -
+                            <t t-out="delivery_data['end_date']"/> -
+                            <t t-out="doc.name"/>
+                        </h3>
+                        <hr/>
+                        <p>
+                            <span class="fw-bold">Name: </span>
+                            <t t-out="doc.name"/>
+                        </p>
+                        <p>
+                            <span class="fw-bold">Phone: </span>
+                            <t t-out="doc.phone"/>
+                        </p>
+                        <p>
+                            <span class="fw-bold">Email: </span>
+                            <t t-out="doc.email"/>
+                        </p>
+                        <p>
+                            <span class="fw-bold">Deliveries count: </span>
+                            <t t-out="len(delivery_data['deliveries'])"/>
+                        </p>
+                        <p>
+                            <span class="fw-bold">Deliveries amount:</span>
+                            <t t-out="doc.currency_id.symbol"/>
+                            <t t-out="delivery_data['total_sum']"/>
+                        </p>
+                        <hr/>
+                    </div>
+                    <div class="container">
+                        <div>
+                            <H4 align="center">Deliveries</H4>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        Delivery date
+                                    </th>
+                                    <th scope="col">
+                                        Order No.
+                                    </th>
+                                    <th scope="col">
+                                        Client name
+                                    </th>
+                                    <th scope="col" class="col-4">
+                                        Delivery address
+                                    </th>
+                                    <th scope="col">
+                                        Order total
+                                    </th>
+                                    <th scope="col">
+                                        Delivery status
+                                    </th>
+                                    <th scope="col">
+                                        Comments
+                                    </th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="delivery_data['deliveries']" t-as="order">
+                                <tr>
+                                    <td>
+                                        <span t-field="order.commitment_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="order.id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="order.partner_id.name"/>
+                                    </td>
+                                    <td class="col-4">
+                                        <span t-field="order.partner_id.contact_address"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="order.amount_total"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="order.state=='done'">
+                                            Awaiting delivery
+                                        </t>
+                                        <t t-else="">
+                                            Delivered
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-out="order.note"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+
+
+                    </div>
+                    <br/>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                                <span class="fw-bold">Report date:</span>
+                                <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H-%M-%S')"/>
+                            </div>
+                            <div class="col-4">
+                                <span class="fw-bold">Courier signature: __________________________________</span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+            </div>
+        </t>
+    </template>
+
+    <record id="action_courier_delivery_report" model="ir.actions.report">
+        <field name="name">Courier Delivery</field>
+        <field name="model">res.partner</field>
+        <!--        <field name="res_model">report.courier.delivery</field>-->
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">test_tasks.courier_delivery_report</field>
+        <field name="report_file">test_tasks.courier_delivery_report</field>
+        <field name="print_report_name">% Courier Delivery report - % object.name</field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="paperformat_A4_portrait" model="report.paperformat">
+        <field name="name">A4 portrait</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">3</field>
+        <field name="margin_bottom">3</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">3</field>
+        <field name="dpi">100</field>
+    </record>
+
+</odoo>

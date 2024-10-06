@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="action_delivery_schedule" model="ir.actions.client">-->
+<!--        <field name="name">Delivery Schedule</field>-->
+<!--        <field name="tag">delivery_schedule_action</field>-->
+<!--    </record>-->
+
+    <record model="ir.actions.act_window" id="action_delivery_schedule">
+        <field name="name">xtree window</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">delivery_schedule,tree</field>
+    </record>
+
+    <menuitem id="menu_delivery_schedule" name="Delivery Schedule" action="action_delivery_schedule"/>
+
+</odoo>

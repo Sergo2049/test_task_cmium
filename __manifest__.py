@@ -24,15 +24,21 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'views/crm_lead_views.xml',
         'views/sale_order_views.xml',
         'views/delivery_statistics_views.xml',
-        'report/courier_delivery_report.xml'
+        'report/courier_delivery_report.xml',
+        'views/delivery_schedule_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'test_tasks/static/src/delivery_schedule/js/delivery_schedule_view.js',
+        ],
+    },
 }

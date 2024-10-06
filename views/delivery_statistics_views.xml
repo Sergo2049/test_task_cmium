@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_view_delivery_statistics_calendar" model="ir.actions.act_window">
+        <field name="name">Delivery Statistic</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="test_tasks.delivery_statistic_views_calendar_test_tasks"/>
+        <field name="view_mode">calendar</field>
+        <field name="domain">[("delivery_partner_id.iam_delivery_partner", "=", True)]</field>
+    </record>
+
+    <record id="action_view_delivery_statistics_pivot" model="ir.actions.act_window">
+        <field name="name">Delivery Statistic</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="test_tasks.delivery_statistic_views_pivot_test_tasks"/>
+        <field name="view_mode">pivot</field>
+        <field name="domain">[("delivery_partner_id.iam_delivery_partner", "=", True),
+            ("commitment_date", "!=", False)]</field>
+    </record>
+
+    <record id="action_view_delivery_statistics_graph" model="ir.actions.act_window">
+        <field name="name">Delivery Statistic</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="test_tasks.delivery_statistic_views_graph_test_tasks"/>
+        <field name="view_mode">graph</field>
+        <field name="domain">[("delivery_partner_id.iam_delivery_partner", "=", True)]</field>
+    </record>
+
+    <menuitem id="delivery_statistics_menu_root"
+              name="Delivery Statistics"
+              parent="sale.sale_menu_root"
+              sequence="60"/>
+
+    <menuitem id="delivery_statistics_calendar"
+              name="Calendar"
+              parent="delivery_statistics_menu_root"
+              action="action_view_delivery_statistics_calendar"
+              sequence="10"/>
+
+    <menuitem id="delivery_statistics_pivot"
+              name="Pivot"
+              parent="delivery_statistics_menu_root"
+              action="action_view_delivery_statistics_pivot"
+              sequence="20"/>
+
+    <menuitem id="delivery_statistics_graph"
+              name="Graph"
+              parent="delivery_statistics_menu_root"
+              action="action_view_delivery_statistics_graph"
+              sequence="30"/>
+</odoo>
