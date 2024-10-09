@@ -20,11 +20,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'crm', 'sale'],
+    'depends': ['base', 'crm', 'sale', 'web'],
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'views/crm_lead_views.xml',
         'views/sale_order_views.xml',
@@ -38,7 +38,17 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'test_tasks/static/src/delivery_schedule/js/delivery_schedule_view.js',
+                    # 'test_tasks/static/src/delivery_schedule/js/delivery_schedule_view.js',
+            'test_tasks/static/src/customize_field/customize_field.js',
+            'test_tasks/static/src/customize_field/customize_field_view.xml',
+            # 'test_tasks/static/src/custom_view/beautiful_controller.js',
+            # 'test_tasks/static/src/custom_view/beautiful_controller.xml',
+            # 'test_tasks/static/src/custom_view/beautiful_renderer.js',
+            # 'test_tasks/static/src/custom_view/beautiful_renderer.xml',
+            # 'test_tasks/static/src/custom_view/beautiful_model.js',
+            # 'test_tasks/static/src/custom_view/beautiful_view.js '
+            'test_tasks/static/src/custom_view/test_view.js',
+            'test_tasks/static/src/custom_view/test_view.xml'
         ],
     },
 }

@@ -98,4 +98,14 @@
         </field>
     </record>
 
+<!--    <record id="my_beautiful_view" model="ir.ui.view">-->
+<!--        <field name="name">my_view</field>-->
+<!--        <field name="model">crm.lead</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <beautiful fieldFromTheArch="crm.lead">-->
+<!--                Hello-->
+<!--            </beautiful>-->
+<!--        </field>-->
+<!--    </record>-->
+
 </odoo>
