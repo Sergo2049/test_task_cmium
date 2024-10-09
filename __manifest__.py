@@ -47,8 +47,11 @@
             # 'test_tasks/static/src/custom_view/beautiful_renderer.xml',
             # 'test_tasks/static/src/custom_view/beautiful_model.js',
             # 'test_tasks/static/src/custom_view/beautiful_view.js '
-            'test_tasks/static/src/custom_view/test_view.js',
-            'test_tasks/static/src/custom_view/test_view.xml'
+            'test_tasks/static/src/custom_view/delivery_schedule.js',
+            'test_tasks/static/src/custom_view/delivery_schedule_template.xml'
+            # 'test_tasks/static/src/custom_view/cohort_view.js',
+            # 'test_tasks/static/src/custom_view/cohort_view_template.xml'
+
         ],
     },
 }
