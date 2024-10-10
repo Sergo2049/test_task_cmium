@@ -28,6 +28,7 @@
             id="menu_delivery_schedule"
             name="Delivery Schedule"
             action="action_delivery_schedule"
-            parent="delivery_statistics_menu_root"/>
+            parent="delivery_statistics_menu_root"
+            sequence="100"/>
 
 </odoo>
