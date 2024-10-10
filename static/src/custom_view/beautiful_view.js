@@ -38,7 +38,7 @@ export const BeautifulView = {
 };
 
 registry.category("views").add("beautiful", BeautifulView);
-
+console.log(registry.category("views").get("beautiful"));
 
 ///** @odoo-module */
 //

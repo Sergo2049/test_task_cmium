@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<!--    <record id="action_delivery_schedule" model="ir.actions.client">-->
-<!--        <field name="name">Delivery Schedule"</field>-->
-<!--        <field name="tag">test_tasks.DeliveryScheduleServices</field>-->
+    <record id="action_delivery_schedule" model="ir.actions.client">
+        <field name="name">Delivery Schedule"</field>
+        <field name="tag">test_tasks.DeliveryScheduleServices</field>
+    </record>
+
+
+<!--    <record id="action_delivery_schedule" model="ir.actions.act_window">-->
+<!--        <field name="name">Beautiful View</field>-->
+<!--        <field name="res_model">crm.lead</field>-->
+<!--        <field name="view_mode">beautiful</field>-->
 <!--    </record>-->
 
-
-    <record id="action_delivery_schedule" model="ir.actions.act_window">
-        <field name="name">Beautiful View</field>
-        <field name="res_model">crm.lead</field>
-        <field name="view_mode">beautiful</field>
-    </record>
-
-    <record id="crm_lead_beautiful_view" model="ir.ui.view">
-        <field name="name">crm.lead.beautiful.view</field>
-        <field name="model">crm.lead</field>
-        <field name="arch" type="xml">
-            <beautiful>
-                <field name="name"/>
-            </beautiful>
-        </field>
-    </record>
-
+<!--    <record id="crm_lead_beautiful_view" model="ir.ui.view">-->
+<!--        <field name="name">crm.lead.beautiful.view</field>-->
+<!--        <field name="model">crm.lead</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <beautiful>-->
+<!--                <field name="name"/>-->
+<!--            </beautiful>-->
+<!--        </field>-->
+<!--    </record>-->
 
     <menuitem
             id="menu_delivery_schedule"

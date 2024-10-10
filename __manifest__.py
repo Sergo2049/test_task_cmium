@@ -41,15 +41,15 @@
                     # 'test_tasks/static/src/delivery_schedule/js/delivery_schedule_view.js',
             'test_tasks/static/src/customize_field/customize_field.js',
             'test_tasks/static/src/customize_field/customize_field_view.xml',
-            'test_tasks/static/src/custom_view/beautiful_controller.js',
-            'test_tasks/static/src/custom_view/beautiful_controller.xml',
-            'test_tasks/static/src/custom_view/beautiful_renderer.js',
-            'test_tasks/static/src/custom_view/beautiful_renderer.xml',
-            'test_tasks/static/src/custom_view/beautiful_arch_parser.js',
-            'test_tasks/static/src/custom_view/beautiful_model.js',
-            'test_tasks/static/src/custom_view/beautiful_view.js',
-            # 'test_tasks/static/src/custom_view/delivery_schedule.js',
-            # 'test_tasks/static/src/custom_view/delivery_schedule_template.xml'
+            # 'test_tasks/static/src/custom_view/beautiful_controller.js',
+            # 'test_tasks/static/src/custom_view/beautiful_controller.xml',
+            # 'test_tasks/static/src/custom_view/beautiful_renderer.js',
+            # 'test_tasks/static/src/custom_view/beautiful_renderer.xml',
+            # 'test_tasks/static/src/custom_view/beautiful_arch_parser.js',
+            # 'test_tasks/static/src/custom_view/beautiful_model.js',
+            # 'test_tasks/static/src/custom_view/beautiful_view.js',
+            'test_tasks/static/src/custom_view/delivery_schedule.js',
+            'test_tasks/static/src/custom_view/delivery_schedule_template.xml'
             # 'test_tasks/static/src/custom_view/cohort_view.js',
             # 'test_tasks/static/src/custom_view/cohort_view_template.xml'
 
