@@ -17,13 +17,15 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <table class="table mx-4" t-if="state.orm_data">
+                        <div id="orders-table-container"></div>
+                        <!-- <table class="table mx-4" t-if="state.orm_data">
                             <tr t-foreach="state.orm_data" t-as="data" t-key="data.id">
                                 <td><span t-esc="data.create_date"/></td>
                                 <td><span t-esc="data.name"/></td>
                                 <td><span t-esc="data.email"/></td>
                             </tr>
-                        </table>
+                        </table> -->
+                        
                     </div>
                 </div>
             </layout>

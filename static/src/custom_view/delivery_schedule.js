@@ -45,7 +45,7 @@ export class DeliveryScheduleServices extends Component{
 
 
     async getDataTable(){
-//        Get periods
+
         let current_date = this.state.current_date;
         let periods = [];
         for (let i = 0; i < 7; i++) {
@@ -57,13 +57,48 @@ export class DeliveryScheduleServices extends Component{
         let week_end = this.state.current_date.endOf('isoweek').format('YYYY-MM-DD');
         console.log("week_start", week_start, "week_end",  week_end);
 
-        const data = await this.orm.searchRead("res.partner", [['create_date', '>=', week_start],
-        ['create_date', '<=', week_end]], ['create_date', 'name', 'email']);
-//        console.log("DATA: ", week_start);
+        const data = await this.orm.searchRead("sale.order", [['create_date', '>=', week_start],
+        ['create_date', '<=', week_end]], ['create_date', 'name', 'delivery_partner_id']);
+
         this.state.orm_data = data;
+
+        this.generateOrdersTable(data, periods);
     }
 
+    generateOrdersTable(ordersData, periods){
+        const table = document.createElement('table');
+        table.classList.add('table', 'table-bordered');
+        
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr')
 
+        const emptyHeaderCell = document.createElement('th');
+        headerRow.appendChild(emptyHeaderCell);
+
+        periods.forEach(period => {
+            const th = document.createElement('th');
+            th.innerText = period;
+            headerRow.appendChild(th);
+            
+        });
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // tbody = document.createElement('tbody');
+
+        // Object.keys(ordersData).forEach(deliveryPartner =>{
+        //     const tr = document.createElement('tr');
+
+        //     const partnerCell = document.createElement('td');
+        //     trCell.innerText = deliveryPartner;
+        //     tr.appendChild(trCell);
+
+
+            
+        // })
+        document.getElementById('orders-table-container').appendChild(table);
+    }
 
 }
 
