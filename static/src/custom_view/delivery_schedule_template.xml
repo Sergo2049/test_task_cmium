@@ -3,29 +3,31 @@
     <templates xml:space="preserve">
         <t t-name="test_tasks.DeliveryScheduleServicesTemplate" owl="1">
             <layout display="display">
-                <div class="row">
-                    <div class="col m-3">
-                        <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>
-                        <button class="btn btn-primary ms-2" t-on-click="getOrmService">ORM Service</button>
-                        <button class="btn btn-primary ms-2" t-on-click="getDataTable">DATA TABLE</button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col m-3">
+                            <button class="btn btn-primary" t-on-click="showNotification">Notification Service</button>
+                            <button class="btn btn-primary ms-2" t-on-click="getOrmService">ORM Service</button>
+                            <button class="btn btn-primary ms-2" t-on-click="getDataTable">DATA TABLE</button>
+                        </div>
+                        <div class="col m-3">
+                            <button class="btn btn-primary ms-2" t-on-click="getPreviousPeriod">Prev.</button>
+                            <button class="btn btn-primary ms-2" t-on-click="changePeriod">Period</button>
+                            <button class="btn btn-primary ms-2" t-on-click="getNextPeriod">Next</button>
+                        </div>
                     </div>
-                    <div class="col m-3">
-                        <button class="btn btn-primary ms-2" t-on-click="getPreviousPeriod">Prev.</button>
-                        <button class="btn btn-primary ms-2" t-on-click="changePeriod">Period</button>
-                        <button class="btn btn-primary ms-2" t-on-click="getNextPeriod">Next</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="orders-table-container"></div>
-                        <!-- <table class="table mx-4" t-if="state.orm_data">
-                            <tr t-foreach="state.orm_data" t-as="data" t-key="data.id">
-                                <td><span t-esc="data.create_date"/></td>
-                                <td><span t-esc="data.name"/></td>
-                                <td><span t-esc="data.email"/></td>
-                            </tr>
-                        </table> -->
-                        
+                    <div class="row">
+                        <div class="col">
+                            <div id="orders-table-container"></div>
+                            <!-- <table class="table mx-4" t-if="state.orm_data">
+                                <tr t-foreach="state.orm_data" t-as="data" t-key="data.id">
+                                    <td><span t-esc="data.create_date"/></td>
+                                    <td><span t-esc="data.name"/></td>
+                                    <td><span t-esc="data.email"/></td>
+                                </tr>
+                            </table> -->
+
+                        </div>
                     </div>
                 </div>
             </layout>

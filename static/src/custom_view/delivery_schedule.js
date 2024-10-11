@@ -34,15 +34,6 @@ export class DeliveryScheduleServices extends Component{
         console.log("Show notification");
     }
 
-    //getPeriods(){
-        //let current_date = moment();
-        //let periods = [];
-        //for (let i = 0; i < 7; i++) {
-        //    periods.push(current_date.startOf('week').add(i, 'days').format('dddd'));
-        //}
-       // console.log('periods', periods);
-      // console.log('AAA')
-
 
     async getDataTable(){
 
@@ -58,7 +49,7 @@ export class DeliveryScheduleServices extends Component{
         console.log("week_start", week_start, "week_end",  week_end);
 
         const data = await this.orm.searchRead("sale.order", [['create_date', '>=', week_start],
-        ['create_date', '<=', week_end]], ['date_order', 'name', 'delivery_partner_id']);
+        ['create_date', '<=', week_end]], ['date_order', 'name', 'partner_id']);
         
         data.forEach(order => {
             let object_date = new Date(order.date_order);
@@ -77,7 +68,7 @@ export class DeliveryScheduleServices extends Component{
     
         orders.forEach(order => { // Перебираем каждый заказ в массиве orders
             // Получаем имя партнера, если это массив, иначе используем "Без партнера"
-            const deliveryPartner = Array.isArray(order.delivery_partner_id) ? order.delivery_partner_id[1] : "No partner"; 
+            const deliveryPartner = Array.isArray(order.partner_id) ? order.partner_id[1] : "No partner"; 
             const orderDate = order.start_of_day; // Получаем дату заказа
     
             // Если для этого партнера еще нет записи в сводной таблице, создаем ее
@@ -93,7 +84,7 @@ export class DeliveryScheduleServices extends Component{
             // Добавляем номер заказа в соответствующую ячейку сводной таблицы
             pivotTable[deliveryPartner][orderDate].push(order.name); 
         });
-        console.log('pivot table', pivotTable)
+        
         return pivotTable; // Возвращаем сводную таблицу
     }
     
@@ -101,7 +92,7 @@ export class DeliveryScheduleServices extends Component{
 
         // Create table head
         const table = document.createElement('table');
-        table.classList.add('table', 'table-bordered');
+        table.classList.add('table', 'table-stripped', 'table-dark', 'table-boarded', 'table-hover');
         
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr')
@@ -123,37 +114,20 @@ export class DeliveryScheduleServices extends Component{
         
     for(const rowValue in pivotTable){
         const tr = document.createElement('tr');
-        let trCell = document.createElement('td');
+        let trCell = document.createElement('th');
         trCell.innerText = rowValue;
         tr.appendChild(trCell);
 
         periods.forEach(period => {
             const orders = pivotTable[rowValue][period] || [];
-            const joined_orders = (orders.join(", ") || "");
-            console.log(joined_orders);
+            const joined_orders = (orders.join(",\n") || "");
             let trCell = document.createElement('td');
             trCell.innerText = joined_orders;
             tr.appendChild(trCell);
         })
-        table.appendChild(tr);
+        tbody.appendChild(tr);
        }
-
-        // Object.keys(ordersData).forEach(deliveryPartner =>{
-        //     const tr = document.createElement('tr');
-        //     console.log('deliveryPartner', deliveryPartner);
-        //     const trCell = document.createElement('td');
-        //     trCell.innerText = deliveryPartner;
-        //     tr.appendChild(trCell);
-            
-            // periods.forEach(period => {
-            //     let td = document.createElement('td');
-            //     let order_id = ordersData[deliveryPartner][period];
-            //     console.log('order_id', order_id);
-            //     td.innerText = 
-            // })
-
-            
-        // })
+       table.appendChild(tbody);
         document.getElementById('orders-table-container').appendChild(table);
     }
 }
