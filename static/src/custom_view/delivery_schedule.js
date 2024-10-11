@@ -7,7 +7,7 @@ import { getDefaultConfig } from "@web/views/view"
 import { useService } from "@web/core/utils/hooks"
 
 
-const { Component, useSubEnv, useState } = owl
+const { Component, useSubEnv, useState, onMounted} = owl
 
 export class DeliveryScheduleServices extends Component{
     setup(){
@@ -20,11 +20,19 @@ export class DeliveryScheduleServices extends Component{
                 ...this.env.config,
             }
         })
+
+        onMounted(() => {
+            try {
+                this.getDataTable();
+            } catch (error) {
+                console.error('Error loading orders:', error);
+            }
+        })
         this.orm = useService("orm");
 
         this.state = useState({
             orm_data: [],
-            current_date: moment(),
+            currentDate: moment(),
 
         })
         console.log("%c[class DeliveryScheduleServices]", "background: green");
@@ -34,18 +42,29 @@ export class DeliveryScheduleServices extends Component{
         console.log("Show notification");
     }
 
+    getPreviousPeriod(){
+        let currentDate = this.state.currentDate;
+        currentDate = currentDate.subtract(7, 'days').calendar();
+        this.getDataTable();
+    }
+
+    getNextPeriod(){
+        let currentDate = this.state.currentDate;
+        currentDate = currentDate.add(7, 'days').calendar();
+        this.getDataTable();
+    }
 
     async getDataTable(){
 
-        let current_date = this.state.current_date;
+        let currentDate = this.state.currentDate;
         let periods = [];
         for (let i = 0; i < 7; i++) {
-            periods.push(current_date.startOf('week').add(i, 'days').format('YYYY-MM-DD'));
+            periods.push(currentDate.startOf('week').add(i, 'days').format('YYYY-MM-DD'));
         }
         console.log('periods', periods);
 
-        let week_start = this.state.current_date.startOf('isoweek').format('YYYY-MM-DD');
-        let week_end = this.state.current_date.endOf('isoweek').format('YYYY-MM-DD');
+        let week_start = this.state.currentDate.startOf('isoweek').format('YYYY-MM-DD');
+        let week_end = this.state.currentDate.endOf('isoweek').format('YYYY-MM-DD');
         console.log("week_start", week_start, "week_end",  week_end);
 
         const data = await this.orm.searchRead("sale.order", [['create_date', '>=', week_start],
@@ -62,6 +81,8 @@ export class DeliveryScheduleServices extends Component{
         const pivotTable = this.createPivotTable(data, periods)
         this.generateOrdersTable(pivotTable, periods);
     }
+
+
 
     createPivotTable(orders, dates) {
         const pivotTable = {}; // Создаем объект для сводной таблицы
