@@ -126,8 +126,7 @@ export class DeliveryScheduleServices extends Component{
 
         // Create table head
         const table = document.createElement('table');
-        table.classList.add('table', 'table-stripped', 'table-dark', 'table-boarded', 'table-hover');
-        
+        table.classList.add('table', 'table-bordered', 'table-hover');
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr')
 
