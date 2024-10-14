@@ -20,7 +20,7 @@ export class DeliveryScheduleServices extends Component{
             }
         })
 
-        // this.webClient = useService("web_client");
+        this.action = useService("action");
         this.orm = useService("orm");
         this.state = useState({
             orm_data: [],
@@ -174,22 +174,21 @@ export class DeliveryScheduleServices extends Component{
     document.getElementById('orders-table-container').replaceChildren(table);
     }
 
-    // handleCellClick(event) {
+    handleCellClick(event) {
 
-    //     const cell = event.target;
-
-    //     if (!event.target.innerText.trim() && cell.children.lenght === 0){
-            
-    //             this.webClient.doAction({
-    //                 type: "ir.actions.act_window",
-    //                 res_model: "sale.order",
-    //                 view_mode: "form",
-    //                 target: "current",
-    //                 views: [[false, "form"]],
-    //             });
-            
-    //     }
-    // }
+        const cell = event.target;
+        console.log('event.target.innerText.trim()', event.target.innerText.trim());
+        console.log('cell.children.lenght', cell.children.lenght);
+        if (!event.target.innerText.trim()){        
+            this.action.doAction({
+                type: "ir.actions.act_window",
+                res_model: "sale.order",
+                view_mode: "form",
+                target: "current",
+                views: [[false, "form"]],
+            });
+        }
+    }
 }
 
 DeliveryScheduleServices.template = "test_tasks.DeliveryScheduleServicesTemplate";
