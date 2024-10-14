@@ -1,7 +1,6 @@
 /** @odoo-module */
 
 import { registry } from "@web/core/registry"
-//import { Component } from "@odoo/owl"
 import { Layout } from "@web/search/layout"
 import { getDefaultConfig } from "@web/views/view"
 import { useService } from "@web/core/utils/hooks"
@@ -21,10 +20,12 @@ export class DeliveryScheduleServices extends Component{
             }
         })
 
+        // this.webClient = useService("web_client");
         this.orm = useService("orm");
         this.state = useState({
             orm_data: [],
             currentDate: moment(),
+            baseUrl: window.location.origin,
 
         })
 
@@ -34,6 +35,9 @@ export class DeliveryScheduleServices extends Component{
                 this.getDataTable();
             } catch (error) {
                 console.error('Error loading orders:', error);
+                if (error.cause) {
+                    console.error('Cause of error:', error.cause);
+                }
             }
         })
 
@@ -71,13 +75,19 @@ export class DeliveryScheduleServices extends Component{
 
         const data = await this.orm.searchRead("sale.order", [['create_date', '>=', week_start],
         ['create_date', '<=', week_end]], ['date_order', 'name', 'partner_id']);
-        
+
+        console.log("%c[data]:", "background: green", data)
+
+        if (!Array.isArray(data)) {
+            throw new Error("Expected data to be an array");
+        }
+
         data.forEach(order => {
             let object_date = new Date(order.date_order);
             order.start_of_day = object_date.toISOString().split('T')[0];
         })
         this.state.orm_data = data;
-        console.log("%c[data]:", "background: green", data)
+        
 
         
         const pivotTable = this.createPivotTable(data, periods)
@@ -105,7 +115,8 @@ export class DeliveryScheduleServices extends Component{
             }
     
             // Добавляем номер заказа в соответствующую ячейку сводной таблицы
-            pivotTable[deliveryPartner][orderDate].push(order.name); 
+
+            pivotTable[deliveryPartner][orderDate].push(order); 
         });
         console.log('pivotTable', pivotTable);
         return pivotTable; // Возвращаем сводную таблицу
@@ -135,25 +146,50 @@ export class DeliveryScheduleServices extends Component{
      
         const tbody = document.createElement('tbody');
         
-    for(const rowValue in pivotTable){
-        const tr = document.createElement('tr');
-        let trCell = document.createElement('th');
-        trCell.innerText = rowValue;
-        tr.appendChild(trCell);
-
-        periods.forEach(period => {
-            const orders = pivotTable[rowValue][period] || [];
-            const joined_orders = (orders.join(",\n") || "");
-            let trCell = document.createElement('td');
-            trCell.innerText = joined_orders;
+        for(const rowValue in pivotTable){
+            const tr = document.createElement('tr');
+            let trCell = document.createElement('th');
+            trCell.innerText = rowValue;
             tr.appendChild(trCell);
-        })
-        tbody.appendChild(tr);
+
+            periods.forEach(period => {
+                const orders = pivotTable[rowValue][period] || [];
+                let trCell = document.createElement('td');
+                trCell.addEventListener('click', (event) => this.handleCellClick(event));
+                orders.forEach((order, index) =>{
+                    const orderLink = document.createElement('a');
+                    orderLink.href = `${this.state.baseUrl}/web#id=${order.id}&model=sale.order&view_type=form`;
+                    orderLink.classList.add('badge', 'badge-warning'); 
+                    orderLink.innerText = order.name;
+                    orderLink.style.display = 'block'; 
+                    trCell.appendChild(orderLink);
+                })
+
+                tr.appendChild(trCell);
+            })
+            tbody.appendChild(tr);
        }
 
     table.appendChild(tbody);
     document.getElementById('orders-table-container').replaceChildren(table);
     }
+
+    // handleCellClick(event) {
+
+    //     const cell = event.target;
+
+    //     if (!event.target.innerText.trim() && cell.children.lenght === 0){
+            
+    //             this.webClient.doAction({
+    //                 type: "ir.actions.act_window",
+    //                 res_model: "sale.order",
+    //                 view_mode: "form",
+    //                 target: "current",
+    //                 views: [[false, "form"]],
+    //             });
+            
+    //     }
+    // }
 }
 
 DeliveryScheduleServices.template = "test_tasks.DeliveryScheduleServicesTemplate";
