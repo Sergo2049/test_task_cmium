@@ -24,7 +24,7 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'views/crm_lead_views.xml',
         'views/sale_order_views.xml',
@@ -38,7 +38,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-                    # 'test_tasks/static/src/delivery_schedule/js/delivery_schedule_view.js',
+            # 'test_tasks/static/src/delivery_schedule/js/delivery_schedule_view.js',
             'test_tasks/static/src/customize_field/customize_field.js',
             'test_tasks/static/src/customize_field/customize_field_view.xml',
             # 'test_tasks/static/src/custom_view/beautiful_controller.js',

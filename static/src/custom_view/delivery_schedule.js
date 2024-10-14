@@ -50,13 +50,17 @@ export class DeliveryScheduleServices extends Component{
 
     getPreviousPeriod(){
         let currentDate = this.state.currentDate;
-        currentDate = currentDate.subtract(7, 'days').calendar();
+        currentDate = currentDate.subtract(1, 'weeks');
+        const date_badge = document.getElementById('current-date-container');
+        date_badge.innerText = currentDate.format('YYYY-MM-DD');
         this.getDataTable();
     }
 
     getNextPeriod(){
         let currentDate = this.state.currentDate;
-        currentDate = currentDate.add(7, 'days').calendar();
+        currentDate = currentDate.add(1, 'weeks');
+        const date_badge = document.getElementById('current-date-container');
+        date_badge.innerText = currentDate.format('YYYY-MM-DD');
         this.getDataTable();
     }
 
@@ -87,8 +91,6 @@ export class DeliveryScheduleServices extends Component{
             order.start_of_day = object_date.toISOString().split('T')[0];
         })
         this.state.orm_data = data;
-        
-
         
         const pivotTable = this.createPivotTable(data, periods)
         this.generateOrdersTable(pivotTable, periods);
