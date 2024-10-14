@@ -21,20 +21,22 @@ export class DeliveryScheduleServices extends Component{
             }
         })
 
+        this.orm = useService("orm");
+        this.state = useState({
+            orm_data: [],
+            currentDate: moment(),
+
+        })
+
         onMounted(() => {
+            document.getElementById('current-date-container').innerText = this.state.currentDate.format('YYYY-MM-DD');
             try {
                 this.getDataTable();
             } catch (error) {
                 console.error('Error loading orders:', error);
             }
         })
-        this.orm = useService("orm");
 
-        this.state = useState({
-            orm_data: [],
-            currentDate: moment(),
-
-        })
         console.log("%c[class DeliveryScheduleServices]", "background: green");
         console.log("%c[this]:", "background: green", this);
     }
@@ -56,15 +58,15 @@ export class DeliveryScheduleServices extends Component{
 
     async getDataTable(){
 
-        let currentDate = this.state.currentDate;
+        let currentDate = this.state.currentDate.clone();
         let periods = [];
         for (let i = 0; i < 7; i++) {
             periods.push(currentDate.startOf('week').add(i, 'days').format('YYYY-MM-DD'));
         }
         console.log('periods', periods);
 
-        let week_start = this.state.currentDate.startOf('isoweek').format('YYYY-MM-DD');
-        let week_end = this.state.currentDate.endOf('isoweek').format('YYYY-MM-DD');
+        let week_start = this.state.currentDate.startOf('week').format('YYYY-MM-DD');
+        let week_end = this.state.currentDate.endOf('week').format('YYYY-MM-DD');
         console.log("week_start", week_start, "week_end",  week_end);
 
         const data = await this.orm.searchRead("sale.order", [['create_date', '>=', week_start],
@@ -85,7 +87,7 @@ export class DeliveryScheduleServices extends Component{
 
 
     createPivotTable(orders, dates) {
-        const pivotTable = {}; // Создаем объект для сводной таблицы
+        let pivotTable = {}; // Создаем объект для сводной таблицы
     
         orders.forEach(order => { // Перебираем каждый заказ в массиве orders
             // Получаем имя партнера, если это массив, иначе используем "Без партнера"
@@ -105,7 +107,7 @@ export class DeliveryScheduleServices extends Component{
             // Добавляем номер заказа в соответствующую ячейку сводной таблицы
             pivotTable[deliveryPartner][orderDate].push(order.name); 
         });
-        
+        console.log('pivotTable', pivotTable);
         return pivotTable; // Возвращаем сводную таблицу
     }
     
@@ -148,8 +150,9 @@ export class DeliveryScheduleServices extends Component{
         })
         tbody.appendChild(tr);
        }
-       table.appendChild(tbody);
-        document.getElementById('orders-table-container').appendChild(table);
+
+    table.appendChild(tbody);
+    document.getElementById('orders-table-container').replaceChildren(table);
     }
 }
 
