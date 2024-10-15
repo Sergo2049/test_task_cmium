@@ -49,9 +49,11 @@
             # 'test_tasks/static/src/custom_view/beautiful_model.js',
             # 'test_tasks/static/src/custom_view/beautiful_view.js',
             'test_tasks/static/src/custom_view/delivery_schedule.js',
-            'test_tasks/static/src/custom_view/delivery_schedule_template.xml'
-            # 'test_tasks/static/src/custom_view/cohort_view.js',
-            # 'test_tasks/static/src/custom_view/cohort_view_template.xml'
+            'test_tasks/static/src/custom_view/delivery_schedule_template.xml',
+            'test_tasks/static/src/custom_dashboard/custom_dashboard.js',
+            'test_tasks/static/src/custom_dashboard/custom_dashboard.xml',
+            'test_tasks/static/src/custom_dashboard/kpi_card/kpi_card.js',
+            'test_tasks/static/src/custom_dashboard/kpi_card/kpi_card.xml',
 
         ],
     },

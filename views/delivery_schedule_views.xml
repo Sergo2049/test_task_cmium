@@ -7,9 +7,11 @@
         <field name="model">shift.schedule</field>
         <field name="arch"
             type="xml">
-            <field name="shift_date"/>
-            <field name="courier_id"/>
-            <field name="shift"/>
+            <tree>
+                <field name="shift_date"/>
+                <field name="courier_id"/>
+                <field name="shift"/>
+            </tree>
         </field>
     </record>
 
@@ -17,6 +19,12 @@
         model="ir.actions.client">
         <field name="name">Delivery Schedule table"</field>
         <field name="tag">test_tasks.DeliveryScheduleServices</field>
+    </record>
+
+    <record id="test_tasks.action_custom_dashboard"
+        model="ir.actions.client">
+        <field name="name">Custom Dashboard"</field>
+        <field name="tag">test_tasks.custom_dashboard</field>
     </record>
 
     <record id="test_tasks.action_delivery_schedule"
@@ -35,6 +43,12 @@
     <menuitem id="test_tasks.menu_delivery_schedule"
         name="Delivery Schedule"
         action="action_delivery_schedule"
+        parent="delivery_statistics_menu_root"
+        sequence="110"/>
+
+    <menuitem id="test_tasks.menu_custom_dashboard"
+        name="Custom Dashboard"
+        action="test_tasks.action_custom_dashboard"
         parent="delivery_statistics_menu_root"
         sequence="110"/>
 </odoo>
