@@ -22,10 +22,10 @@
                   </div>
                </div>
                <div class="row">
-                  <KpiCard name="'Quatations'"/>
-                  <KpiCard name="'Orders'"/>
-                  <KpiCard name="'Revenues'"/>
-                  <KpiCard name="'Average Order'"/>
+                  <KpiCard name="'Quatations'"  value="10" percentage="6"/>
+                  <KpiCard name="'Orders'"  value="20" percentage="8"/>
+                  <KpiCard name="'Revenues'"   value="'30.50k'" percentage="-12"/>
+                  <KpiCard name="'Average Order'"   value="'2.5k'" percentage="-16"/>
                </div>
             </div>
             <div class="col-lg-5">
